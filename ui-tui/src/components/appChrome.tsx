@@ -1,4 +1,5 @@
 import { Box, type ScrollBoxHandle, stringWidth, Text } from '@hermes/ink'
+import type { Usage } from '@hermes/shared/gateway-events'
 import { useStore } from '@nanostores/react'
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from 'react'
 import unicodeSpinners from 'unicode-animations'
@@ -16,7 +17,7 @@ import { buildSubagentTree, treeTotals, widthByDepth } from '../lib/subagentTree
 import { fmtK } from '../lib/text.js'
 import { useScrollbarSnapshot, useViewportSnapshot } from '../lib/viewportStore.js'
 import type { Theme } from '../theme.js'
-import type { Msg, Usage } from '../types.js'
+import type { Msg } from '../types.js'
 
 import { scrollbarColors } from './overlayPrimitives.js'
 
@@ -30,7 +31,7 @@ export const padVerb = (verb: string) => `${verb}…`.padEnd(VERB_PAD_LEN, ' ')
 
 // Compact alternates for the `emoji` and `ascii` indicator styles.
 // Each entry is a fixed-width (display-width) glyph.
-const EMOJI_FRAMES = ['⚕ ', '🌀', '🤔', '✨', '🍵', '🔮']
+const EMOJI_FRAMES = ['☤ ', '🌀', '🤔', '✨', '🍵', '🔮']
 const ASCII_FRAMES = ['|', '/', '-', '\\']
 
 // Faster tick for spinner-style indicators — they read as motion only
@@ -54,7 +55,7 @@ const renderIndicator = (style: IndicatorStyle, tick: number): IndicatorRender =
 
   if (style === 'emoji') {
     return {
-      frame: EMOJI_FRAMES[tick % EMOJI_FRAMES.length] ?? '⚕ ',
+      frame: EMOJI_FRAMES[tick % EMOJI_FRAMES.length] ?? '☤ ',
       intervalMs: SPINNER_TICK_MS * 6,
       showVerb: true
     }
